@@ -1,0 +1,30 @@
+baseline: "none"
+input_type: "obs_feat"
+expl_seq_len: 0  # >2 to enable
+k_expl: 0.05
+anneal_k: False
+mask_ratio: 0.7
+mask_all: false
+norm_loss: false
+use_cls: true
+use_actor_feat: false
+bert_lr: 1e-4
+# embed_dim: 128
+# decoder_embed_dim: 64
+# decoder_num_heads: 2
+# decoder_depth: 1
+
+# # ratio
+# use_my_ratio: false
+# attn_selet_way: 0
+# sequencelevel: 0
+# ratio_s2aanda2s: 0.5
+# attn_ratio_weight: 1.0
+
+# expl_seq_len_ratio: 1  # >=2 to enable
+# # anneal_k_ratio: False
+# norm_loss_ratio: false
+# use_cls_ratio: true
+# bert_lr_ratio: 1e-4
+# decoder_num_heads_ratio: 2
+# decoder_depth_ratio: 1

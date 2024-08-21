@@ -1,0 +1,63 @@
+
+physics_engine: "physx"
+pipeline: "gpu"
+sim_device: ???
+rl_device: ???
+graphics_device_id: 0
+num_gpus: 1
+
+test: False
+resume: 0
+logdir: /mimex-pixmc
+cptdir: ""
+headless: True
+exp_name: "exp"
+exp: "t"
+wandb_mode: "disabled"  # "online" | "offline" | "disabled"
+
+save_latest_video: False
+
+action_noise_cfg:
+  type: "learned"  # "learned" | "scheduled" | "none"
+  schedule: 'linear(1.0,0.1,16000)'  # for Reach
+
+expl_cfg:
+  # ratio
+  use_my_ratio: true
+  attn_selet_way: 0
+  ratio_s2aanda2s: 0.5
+  attn_ratio_weight: 1.0
+
+  # TPAMI
+  use_mask_ratio: true
+  feat_mask: false
+  feat_mask_value: 0.2
+  seq_mask_value: 0.3
+  attn_speed_way: 1 # 1-6
+
+  expl_seq_len_ratio: 1  # >=2 to enable
+  # anneal_k_ratio: False
+  norm_loss_ratio: false
+  use_cls_ratio: true
+  bert_lr_ratio: 1e-4
+  embed_dim_ratio: 128
+  decoder_embed_dim: 64
+  decoder_num_heads_ratio: 2
+  decoder_depth_ratio: 1
+  encoder_num_heads_ratio: 1
+  encoder_depth_ratio: 4
+  use_next_obs: true
+  const_repalce_ratio: 0
+  save_ratio: true
+
+defaults:
+  - task: FrankaPick
+  - train: ${task}
+  - expl_cfg: no_expl
+  - hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+    # /mimex-pixmc/exp-${expl_cfg.baseline}/${now:%Y-%m-%d-%H%M%S}_${hydra.job.override_dirname}

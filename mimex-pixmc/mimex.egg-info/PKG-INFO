@@ -1,0 +1,5 @@
+Metadata-Version: 2.1
+Name: mimex
+Version: 0.1.0
+Summary: MIMEx: Intrinsic Rewards from Masked Input Modeling
+Requires-Python: >=3.6.*

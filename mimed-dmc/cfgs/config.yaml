@@ -1,0 +1,97 @@
+defaults:
+  - _self_
+  - task@_global_: acrobot_swingup
+  - agent@_global_: drqv2
+  - expl_cfg@_global_: expl
+
+# task settings
+frame_stack: 3
+# frame_stack: 1
+action_repeat: 2
+discount: 0.99
+# train settings
+num_seed_frames: 4000
+# eval
+eval_every_frames: 10000
+save_video_every_evals: 5
+num_eval_episodes: 10
+# snapshot
+save_snapshot: false
+# replay buffer
+replay_buffer_size: 1000000
+replay_buffer_num_workers: 4
+nstep: 1 # Cannot be changed, otherwise the annotation section needs to be enabled
+batch_size: 512
+# misc
+seed: 1
+device: cuda
+load_ckpt_path: ''
+save_best_ckpt: false
+save_video: false
+save_train_video: false
+use_tb: true
+# experiment
+experiment: exp
+# agent
+lr: 1e-4
+feature_dim: 50
+
+wandb_mode: "disabled"  # "online" | "offline" | "disabled"
+
+# sequence exploration
+expl_cfg:
+  seq_type: 'pad2'  # 'full' | 'pad' | 'full2' | 'pad2'
+  seq_expl_len: 0  # >0 to enable
+  k_expl: 0.05
+  mask_ratio: 0.7
+  norm_loss: false
+  use_cls: true
+  use_actor_feat: false
+  use_ema_encoder: false
+  use_self_encoder: true
+  ema_tau: 1.0  # always use latest encoder
+  bert_lr: 1e-4
+  embed_dim: 64
+  decoder_embed_dim: 32
+  decoder_num_heads: 2
+  decoder_depth: 1
+  n_masks: 1
+  baseline: 'none'  # 'none' | 'icm' | 'rnd' | 'ngu'
+
+  use_my_ratio: true # use my methods or not
+  attn_selet_way: 0 # 0-5
+  ratio_s2aanda2s: 0.5
+  attn_ratio_weight: 1.0
+
+  # TPAMI
+  use_mask_ratio: true
+  feat_mask: false
+  feat_mask_value: 0.2
+  seq_mask_value: 0.3
+  attn_speed_way: 1 # 1-6
+
+  expl_seq_len_ratio: 1  # >=2 to enable
+  # anneal_k_ratio: False # Should the weight ratio be dynamically adjusted to gradually decrease as the number of running steps increases
+  norm_loss_ratio: false
+  use_cls_ratio: true
+  bert_lr_ratio: 1e-4
+  embed_dim_ratio: 64
+  decoder_num_heads_ratio: 2
+  decoder_depth_ratio: 1
+  encoder_num_heads_ratio: 1
+  encoder_depth_ratio: 4
+  use_next_obs: true
+  const_repalce_ratio: 0
+  save_ratio: true
+
+encoder_cfg:
+  encoder_type: 'drq'  # 'drq' | 'vit' | 'mae'
+  aug_type: 'drq'  # 'drq' | 'mae'
+  patch_size: 4
+  base_lr: 0.001
+  weight_decay: 0.05
+  batch_size: ${batch_size}
+
+hydra:
+  run:
+    dir: /mimex-dmc/exp-${expl_cfg.baseline}/${now:%Y-%m-%d-%H%M%S}_${hydra.job.override_dirname}

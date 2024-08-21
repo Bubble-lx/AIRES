@@ -1,0 +1,27 @@
+expl_cfg:
+  seq_expl_len: 0  # >2 to enable
+  k_expl: 0.05
+  mask_ratio: 0.7
+  norm_loss: false
+  use_cls: true
+  use_actor_feat: false
+  use_ema_encoder: false
+  ema_tau: 1.0  # always use latest encoder
+  bert_lr: 1e-4
+  # embed_dim: 128
+  # decoder_embed_dim: 128
+  # decoder_num_heads: 2
+  # decoder_depth: 1
+
+  # use_my_ratio: false # use my methods or not
+  # attn_selet_way: 0
+  # ratio_s2aanda2s: 0.5
+  # attn_ratio_weight: 1.0
+
+  # expl_seq_len_ratio: 1  # >=2 to enable
+  # anneal_k_ratio: False # Should the weight ratio be dynamically adjusted to gradually decrease as the number of running steps increases
+  # norm_loss_ratio: false
+  # use_cls_ratio: true
+  # bert_lr_ratio: 1e-4
+  # decoder_num_heads_ratio: 2
+  # decoder_depth_ratio: 1
